@@ -7,7 +7,7 @@ const App = () => {
     const movieSeries = new MovieService()
     console.log(movieSeries)
     // promise qaytaradi
-    movieSeries.getPopularMovies()
+   /* movieSeries.getPopularMovies()
         .then(data => console.log("getPopularMovies => ",data))
         .catch((err) => console.log(err))
         .finally(() => console.log("Finally"))
@@ -19,7 +19,7 @@ const App = () => {
     movieSeries.getDetailed(21)
         .then(data => console.log("getDetailed => ",data))
         .catch((err) => console.log(err))
-        .finally(() => console.log("Finally"))
+        .finally(() => console.log("Finally"))*/
     return (
         <div className='app'>
             <Header/>

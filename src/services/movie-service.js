@@ -25,15 +25,19 @@ class MovieService {
     getPopularMovies = async () => {
         // shu method orqali universal method ga murojaat qilib yoki xato olamiz yoki javob {}
         // method dagi url ko'p takrorlanvotti shuni alohida ozgaruvchiga olib chiqamiz
-        return this.getResources(`${this._apiBase}/popular?${this._apiLng}&${this._apiKey}`)
+        return await this.getResources(`${this._apiBase}/popular?${this._apiLng}&${this._apiKey}`)
     }
 
     getTrandingMovies = async () => {
-        return this.getResources(`${this._apiBase}/top_rated?${this._apiLng}&${this._apiKey}`)
+        return await this.getResources(`${this._apiBase}/top_rated?${this._apiLng}&${this._apiKey}`)
     }
 
     getDetailed = async (id) => {
-        return this.getResources(`${this._apiBase}/${id}?${this._apiLng}&${this._apiKey}`)
+        return await this.getResources(`${this._apiBase}/${id}?${this._apiLng}&${this._apiKey}`)
+    }
+
+    getRandomMovie =async () => {
+        return await this.getResources()
     }
 }
 
