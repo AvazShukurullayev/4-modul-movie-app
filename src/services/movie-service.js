@@ -1,6 +1,7 @@
 class MovieService {
     _apiBase = 'https://api.themoviedb.org/3/movie'
     _apiLng = 'language=en-US'
+    _apiKey = 'api_key=4903385fd9c411f1dbf7393aa4aba6d6'
     getResources = async (url) => {
         // bu universal method boldi bu method bizga yo xato qaytardi yoki javob{} qaytaradi
         const response = await fetch(url, {
@@ -19,15 +20,15 @@ class MovieService {
     getPopularMovies = async () => {
         // shu method orqali universal method ga murojaat qilib yoki xato olamiz yoki javob {}
         // method dagi url ko'p takrorlanvotti shuni alohida ozgaruvchiga olib chiqamiz
-        return this.getResources(`${this._apiBase}/popular?${this._apiLng}&api_key=4903385fd9c411f1dbf7393aa4aba6d6`)
+        return this.getResources(`${this._apiBase}/popular?${this._apiLng}&${this._apiKey}`)
     }
 
     getTrandingMovies = async () => {
-        return this.getResources(`${this._apiBase}/top_rated?${this._apiLng}&api_key=4903385fd9c411f1dbf7393aa4aba6d6`)
+        return this.getResources(`${this._apiBase}/top_rated?${this._apiLng}&${this._apiKey}`)
     }
 
     getDetailed = async (id) => {
-        return this.getResources(`${this._apiBase}/${id}?${this._apiLng}&api_key=4903385fd9c411f1dbf7393aa4aba6d6`)
+        return this.getResources(`${this._apiBase}/${id}?${this._apiLng}&${this._apiKey}`)
     }
 
 }
