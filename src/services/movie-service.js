@@ -1,7 +1,12 @@
+//Todo: Class Constructor
 class MovieService {
+    //Todo: Variables
     _apiBase = 'https://api.themoviedb.org/3/movie'
     _apiLng = 'language=en-US'
     _apiKey = 'api_key=4903385fd9c411f1dbf7393aa4aba6d6'
+    _apiImg = 'https://image.tmdb.org/t/p/original'
+
+    //Todo: Methods
     getResources = async (url) => {
         // bu universal method boldi bu method bizga yo xato qaytardi yoki javob{} qaytaradi
         const response = await fetch(url, {
@@ -30,7 +35,6 @@ class MovieService {
     getDetailed = async (id) => {
         return this.getResources(`${this._apiBase}/${id}?${this._apiLng}&${this._apiKey}`)
     }
-
 }
 
 export default MovieService
