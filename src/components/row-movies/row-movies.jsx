@@ -7,30 +7,29 @@ import './row-movies.scss'
 import MovieService from "../../services/movie-service.js";
 
 class RowMovies extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            open: false,
-            movies: []
-        }
-        this.movieService = new MovieService()
+    state = {
+        open: false,
+        movies: [],
+        movieId: null
     }
+    movieService = new MovieService()
+
 
     componentDidMount() {
         console.log("Mount")
         this.getTrendingMovies()
     }
 
-    onToggleOpen = () => {
-        this.setState(({open}) => ({open: !open}))
-    }
+    onOpen = (id) => this.setState({open: true, movieId: id})
+
+    onClose = () => this.setState({open: false})
 
     getTrendingMovies = () => {
         this.movieService.getTrendingMovies().then((res) => this.setState({movies: res}))
     }
 
     render() {
-        const {open, movies} = this.state
+        const {open, movies, movieId} = this.state
 
         return (
             <div className='app__rowmovie'>
@@ -48,13 +47,14 @@ class RowMovies extends React.Component {
                         <RowMoviesItem
                             key={movie.id}
                             movie={movie}
-                            onToggleOpen={this.onToggleOpen}
+                            onOpen={this.onOpen}
                         />
                     ))}
                 </div>
 
-                <Modal open={open} onClose={this.onToggleOpen}>
-                    <MovieInfo/>
+                {/*Todo: modal oyna bilan ishlimiz*/}
+                <Modal open={open} onClose={this.onClose}>
+                    <MovieInfo movieId={movieId}/>
                 </Modal>
             </div>
         )

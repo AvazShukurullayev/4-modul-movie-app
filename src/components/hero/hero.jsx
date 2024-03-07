@@ -5,15 +5,15 @@ import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../error/ErrorMessage.jsx";
 
 class Hero extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            movie: {},
-            loading: true,
-            error: false
+    state = {
+        movie: {},
+        loading: true,
+        error: false
 
-        }
-        this.movieService = new MovieService()
+    }
+    movieService = new MovieService()
+
+    componentDidMount() {
         this.getMovie()
     }
 
