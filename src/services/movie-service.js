@@ -29,15 +29,28 @@ class MovieService {
     }
 
     getTrandingMovies = async () => {
-        return await this.getResources(`${this._apiBase}/top_rated?${this._apiLng}&${this._apiKey}`)
+        return this.getResources(`${this._apiBase}/top_rated?${this._apiLng}&${this._apiKey}`)
     }
 
-    getDetailed = async (id) => {
-        return await this.getResources(`${this._apiBase}/${id}?${this._apiLng}&${this._apiKey}`)
+    getDetailedMovie = async (id) => {
+        return this.getResources(`${this._apiBase}/${id}?${this._apiLng}&${this._apiKey}`)
     }
 
-    getRandomMovie =async () => {
-        return await this.getResources()
+    getRandomMovie = async () => {
+        const res = await this.getPopularMovies()
+        const movie = res.results[Math.floor(Math.random() * res.results.length)]
+        return this._transformMovie(movie)
+    }
+
+    //   Todo: bunga teyma dasturchi loyiha buzulib ketadi
+    _transformMovie = (movie) => {
+        return {
+            name: movie.original_title,
+            description: movie.overview,
+            backdrop_path: `${this._apiImg}${movie.backdrop_path}`,
+            poster_path: `${this._apiImg}${movie.poster_path}`,
+            id: movie.id
+        }
     }
 }
 
