@@ -6,6 +6,10 @@
 		grid-template-columns: 60% 40%;
 		align-items: center;
 		gap: 10px;
+		&-btns{
+			display: flex;
+			gap: 1rem;
+		}
 
 		&-info {
 			display: flex;
