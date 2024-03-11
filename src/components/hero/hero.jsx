@@ -1,36 +1,36 @@
-import React from "react";
+import {useEffect, useState} from "react";
 import './hero.scss'
 import MovieService from "../../services/movie-service.js";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../error/ErrorMessage.jsx";
+import PropTypes from "prop-types";
 
-class Hero extends React.Component {
-    state = {
-        movie: {},
-        loading: true,
-        error: false
+const Hero = () => {
+    // States
+    const [movie, setMovie] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+    // service
+    const movieService = new MovieService()
 
-    }
-    movieService = new MovieService()
-
-    componentDidMount() {
-        this.updateMovie()
-    }
-
-    updateMovie = () => {
-        this.setState({loading: true})
-        this.movieService.getRandomMovie()
-            .then(res => this.setState({movie: res}))
-            .catch(() => this.setState({error: true}))
-            .finally(() => this.setState({loading: false}))
+    function updateMovie() {
+        setLoading(true)
+        movieService.getRandomMovie()
+            .then(res => setMovie(res))
+            .catch(() => setError(true))
+            .finally(() => setLoading(false))
     }
 
-    render() {
-        const {movie, loading, error} = this.state
-        const errorContent = error ? <ErrorMessage/> : null
-        const loadingContent = loading ? <Spinner/> : null
-        const movieContent = !(error || loading) ? <Content movie={movie}/> : null
-        return (<div className='app__hero'>
+    const errorContent = error ? <ErrorMessage/> : null
+    const loadingContent = loading ? <Spinner/> : null
+    const movieContent = !(error || loading) ? <Content movie={movie}/> : null
+
+    useEffect(() => {
+        updateMovie()
+    }, []);
+
+    return (
+        <div className='app__hero'>
             <div className='app__hero-info'>
                 <h2>FIND MOVIES</h2>
                 <h1>TV shows and more</h1>
@@ -41,7 +41,7 @@ class Hero extends React.Component {
                     consequatur accusantium mollitia.
                 </p>
                 <div className={"app__hero-btns"}>
-                    <button className='btn btn__secondary' onClick={this.updateMovie}>Random movie</button>
+                    <button className='btn btn__secondary' onClick={updateMovie}>Random movie</button>
                     <button className='btn btn__primary'>DETAILS</button>
                 </div>
             </div>
@@ -51,8 +51,8 @@ class Hero extends React.Component {
                 {loadingContent}
                 {movieContent}
             </div>
-        </div>)
-    }
+        </div>
+    )
 }
 
 export default Hero
@@ -66,4 +66,8 @@ const Content = ({movie}) => {
             <button className='btn btn__primary' style={{width: "100%"}}>DETAILS</button>
         </div>
     </>)
+}
+
+Content.propTypes = {
+    movie: PropTypes.object
 }

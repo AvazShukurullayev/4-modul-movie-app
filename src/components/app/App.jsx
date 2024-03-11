@@ -7,7 +7,9 @@ const App = () => {
     return (
         <div className='app'>
             <Header/>
-            <Hero/>
+            <ErrorBoundary>
+                <Hero/>
+            </ErrorBoundary>
             <ErrorBoundary>
                 <RowMovies/>
             </ErrorBoundary>

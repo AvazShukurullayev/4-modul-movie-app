@@ -1,4 +1,5 @@
 import './row-movies-item.scss'
+import PropTypes from "prop-types";
 
 const RowMoviesItem = ({movie, onOpen}) => {
     return (
@@ -17,5 +18,8 @@ const RowMoviesItem = ({movie, onOpen}) => {
         </div>
     )
 }
-
+RowMoviesItem.propTypes = {
+    movie: PropTypes.object,
+    onOpen: PropTypes.func
+}
 export default RowMoviesItem

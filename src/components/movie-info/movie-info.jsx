@@ -1,47 +1,47 @@
 import './movie-info.scss'
-import React from "react";
+import {useEffect, useState} from "react";
 import MovieService from "../../services/movie-service.js";
 import ErrorMessage from "../error/ErrorMessage.jsx";
 import Spinner from "../spinner/Spinner.jsx";
+import PropTypes from "prop-types";
 
-class MovieInfo extends React.Component {
-    state = {
-        movie: null,
-        loading: true,
-        errorMessage: false
-    }
-    movieService = new MovieService()
+const MovieInfo = ({movieId}) => {
+    const [movie, setMovie] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [errorMessage, setErrorMessage] = useState(false)
 
-    componentDidMount() {
-        this.updateMovie()
-    }
+    const movieService = new MovieService()
 
-    updateMovie = () => {
-        const {movieId} = this.props
+    const updateMovie = () => {
         if (!movieId) {
-            this.setState({errorMessage: true})
+            return
+            // setErrorMessage(true)
         }
-        this.movieService.getDetailedMovie(movieId)
-            .then((res) => this.setState({movie: res}))
-            .catch(() => this.setState({errorMessage: true}))
-            .finally(() => this.setState({loading: false}))
+        setLoading(true)
+        movieService.getDetailedMovie(movieId)
+            .then((res) => setMovie(res))
+            .catch(() => setErrorMessage(true))
+            .finally(() => setLoading(false))
     }
 
-    render() {
-        const {movie, loading, errorMessage} = this.state
-        const errorContent = errorMessage && <ErrorMessage/>
-        const loadingContent = loading && <Spinner/>
-        const modalContent = !(errorMessage || loading) && <ModalContent movie={movie}/>
-        return (
-            <div className='movieinfo'>
-                {errorContent}
-                {loadingContent}
-                {modalContent}
-            </div>
-        )
-    }
+    const errorContent = errorMessage && <ErrorMessage/>
+    const loadingContent = loading && <Spinner/>
+    const modalContent = !(errorMessage || loading) && <ModalContent movie={movie}/>
+
+    useEffect(() => {
+        updateMovie()
+    }, [movieId])
+    return (
+        <div className='movieinfo'>
+            {errorContent}
+            {loadingContent}
+            {modalContent}
+        </div>
+    )
 }
-
+MovieInfo.propTypes = {
+    movieId: PropTypes.number
+}
 export default MovieInfo
 
 const ModalContent = ({movie}) => {
@@ -56,4 +56,8 @@ const ModalContent = ({movie}) => {
             </div>
         </>
     )
+}
+
+ModalContent.propTypes = {
+    movie: PropTypes.object
 }
