@@ -5,6 +5,7 @@ import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../error/ErrorMessage.jsx";
 import PropTypes from "prop-types";
 import useMovieService from "../../services/movie-service.js";
+import {useNavigate} from "react-router-dom";
 
 const Hero = () => {
     // States
@@ -38,7 +39,6 @@ const Hero = () => {
                 </p>
                 <div className={"app__hero-btns"}>
                     <button className='btn btn__secondary' onClick={updateMovie}>Random movie</button>
-                    <button className='btn btn__primary'>DETAILS</button>
                 </div>
             </div>
             {/*Todo: loading spinner*/}
@@ -54,14 +54,23 @@ const Hero = () => {
 export default Hero
 
 const Content = ({movie}) => {
-    return (<>
-        <img src={movie.backdrop_path} alt={movie.name}/>
-        <div className='app__hero-moive__descr'>
-            <h2>{movie.name}</h2>
-            <p>{movie.description && movie.description.length > 250 ? `${movie.description.slice(0, 250)}...` : movie.description}</p>
-            <button className='btn btn__primary' style={{width: "100%"}}>DETAILS</button>
-        </div>
-    </>)
+    const navigate = useNavigate()
+    return (
+        <>
+            <img src={movie.backdrop_path} alt={movie.name}/>
+            <div className='app__hero-moive__descr'>
+                <h2>{movie.name}</h2>
+                <p>{movie.description && movie.description.length > 250 ? `${movie.description.slice(0, 250)}...` : movie.description}</p>
+                <button
+                    className='btn btn__primary'
+                    style={{width: "100%"}}
+                    onClick={() => navigate(`/movie/${movie.id}`)}
+                >
+                    DETAILS
+                </button>
+            </div>
+        </>
+    )
 }
 
 Content.propTypes = {

@@ -5,7 +5,7 @@ const useMovieService = () => {
     //Todo: Variables
     const _apiBase = 'https://api.themoviedb.org/3/movie'
     const _apiLng = 'language=en-US'
-    const _apiKey = 'api_key=4903385fd9c411f1dbf7393aa4aba6d6'
+    const _apiKey = 'api_key=19bb41b43757670bbda30b721f7949b8'
     const _apiImg = 'https://image.tmdb.org/t/p/original'
     const _apiPage = 1
 

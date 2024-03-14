@@ -7,9 +7,9 @@ export const useHttp = () => {
             url,
             method = "GET",
             body = null,
-            headers= {
+            headers={
                 accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OTAzMzg1ZmQ5YzQxMWYxZGJmNzM5M2FhNGFiYTZkNiIsInN1YiI6IjY1ZThiMGMwOTYzODY0MDE0NmM4NDYwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DnWH9dvNYILPto9IQnwrW7mEBtiwPloHN6mLizKVsRE'
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOWJiNDFiNDM3NTc2NzBiYmRhMzBiNzIxZjc5NDliOCIsInN1YiI6IjY1ZThiMGMwOTYzODY0MDE0NmM4NDYwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CuTsijMA9WB-ARDubAbIwv09mYbRhapZ0GqdUwdx-5g'
             }
         ) => {
             setLoading(true)
@@ -38,5 +38,5 @@ export const useHttp = () => {
 /*
 headers: {
     accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OTAzMzg1ZmQ5YzQxMWYxZGJmNzM5M2FhNGFiYTZkNiIsInN1YiI6IjY1ZThiMGMwOTYzODY0MDE0NmM4NDYwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DnWH9dvNYILPto9IQnwrW7mEBtiwPloHN6mLizKVsRE'
+       Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOWJiNDFiNDM3NTc2NzBiYmRhMzBiNzIxZjc5NDliOCIsInN1YiI6IjY1ZThiMGMwOTYzODY0MDE0NmM4NDYwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CuTsijMA9WB-ARDubAbIwv09mYbRhapZ0GqdUwdx-5g
 }*/
