@@ -1,32 +1,26 @@
 import './movie-info.scss'
 import {useEffect, useState} from "react";
-import MovieService from "../../services/movie-service.js";
 import ErrorMessage from "../error/ErrorMessage.jsx";
 import Spinner from "../spinner/Spinner.jsx";
 import PropTypes from "prop-types";
+import useMovieService from "../../services/movie-service.js";
 
 const MovieInfo = ({movieId}) => {
     const [movie, setMovie] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const [errorMessage, setErrorMessage] = useState(false)
 
-    const movieService = new MovieService()
+    const {loading, error, getDetailedMovie} = useMovieService()
 
     const updateMovie = () => {
         if (!movieId) {
             return
-            // setErrorMessage(true)
         }
-        setLoading(true)
-        movieService.getDetailedMovie(movieId)
-            .then((res) => setMovie(res))
-            .catch(() => setErrorMessage(true))
-            .finally(() => setLoading(false))
+
+        getDetailedMovie(movieId).then((res) => setMovie(res))
     }
 
-    const errorContent = errorMessage && <ErrorMessage/>
+    const errorContent = error && <ErrorMessage/>
     const loadingContent = loading && <Spinner/>
-    const modalContent = !(errorMessage || loading) && <ModalContent movie={movie}/>
+    const modalContent = !(error || loading || !movie) && <ModalContent movie={movie}/>
 
     useEffect(() => {
         updateMovie()

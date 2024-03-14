@@ -4,26 +4,22 @@ import MovieService from "../../services/movie-service.js";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../error/ErrorMessage.jsx";
 import PropTypes from "prop-types";
+import useMovieService from "../../services/movie-service.js";
 
 const Hero = () => {
     // States
     const [movie, setMovie] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-    // service
-    const movieService = new MovieService()
+    // Todo: useMovieService chaqiramiz
+    const {getRandomMovie, loading, error, clearError} = useMovieService()
 
     function updateMovie() {
-        setLoading(true)
-        movieService.getRandomMovie()
-            .then(res => setMovie(res))
-            .catch(() => setError(true))
-            .finally(() => setLoading(false))
+        clearError()
+        getRandomMovie().then(res => setMovie(res))
     }
 
     const errorContent = error ? <ErrorMessage/> : null
     const loadingContent = loading ? <Spinner/> : null
-    const movieContent = !(error || loading) ? <Content movie={movie}/> : null
+    const movieContent = !(error || loading || !movie) ? <Content movie={movie}/> : null
 
     useEffect(() => {
         updateMovie()

@@ -8,18 +8,16 @@ import MovieService from "../../services/movie-service.js";
 import ErrorMessage from "../error/ErrorMessage.jsx";
 import Spinner from "../spinner/Spinner.jsx";
 import PropTypes from "prop-types";
+import useMovieService from "../../services/movie-service.js";
 
 const RowMovies = () => {
-    const [error, setError] = useState(false)
-    const [loading, setLoading] = useState(false)
     const [open, setOpen] = useState(false)
     const [movies, setMovies] = useState([])
     const [movieId, setMovieId] = useState(null)
     const [page, setPage] = useState(2)
     const [loadPageLoading, setLoadPageLoading] = useState(false)
 
-    const movieService = new MovieService()
-
+    const {getTrendingMovies, error, loading} = useMovieService()
 
     const onOpen = (id) => {
         setOpen(true)
@@ -28,30 +26,24 @@ const RowMovies = () => {
 
     const onClose = () => setOpen(false)
 
-    const getTrendingMovies = (page) => {
-        setLoading(true)
-        // Todo: we'll comeback setMovies(state=>([...state, ...res]))
-        movieService.getTrendingMovies(page)
+// Todo: we'll comeback setMovies(state=>([...state, ...res]))
+    const getMovies = (page) => {
+        getTrendingMovies(page)
             .then((res) => setMovies(res))
-            .catch(() => setError(true))
-            .finally(() => {
-                setLoadPageLoading(false)
-                setLoading(false)
-            })
+            .finally(() => setLoadPageLoading(false))
     }
 
     const getLoadMore = () => {
         setPage(page => page + 1)
         setLoadPageLoading(true)
-        getTrendingMovies(page)
+        getMovies(page)
     }
 
     const errorMessage = error && <ErrorMessage/>
     const loadingSpinner = loading && <Spinner/>
-    const movieListContent = !(error || loading) && <MovieListContent movies={movies} onOpen={onOpen}/>
 
     useEffect(() => {
-        getTrendingMovies()
+        getMovies()
     }, []);
 
     return (
@@ -66,7 +58,8 @@ const RowMovies = () => {
             </div>
             {errorMessage}
             {loadingSpinner}
-            {movieListContent}
+
+            <MovieListContent movies={movies} onOpen={onOpen}/>
             {/*Todo: load more button */}
             <div className="app__rowmovie-load">
                 <button className="btn btn-secondary btn-loading" onClick={getLoadMore}
