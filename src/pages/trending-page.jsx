@@ -1,7 +1,7 @@
 import RowMovies from '../components/row-movies/row-movies'
 
-const TrandingPage = () => {
+const TrendingPage = () => {
 	return <RowMovies />
 }
 
-export default TrandingPage
+export default TrendingPage
